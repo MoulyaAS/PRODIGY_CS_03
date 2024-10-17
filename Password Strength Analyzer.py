@@ -1,12 +1,9 @@
 import re
-from termcolor import colored  # For color-coded feedback, install using 'pip install termcolor'
+from termcolor import colored 
 
-# Function to evaluate password strength
 def evaluate_password_strength(password):
-    # Initialize the strength score
     strength_score = 0
     
-    # Set of criteria to check for
     criteria = {
         "length": len(password) >= 8,
         "uppercase": bool(re.search(r"[A-Z]", password)),
@@ -15,12 +12,10 @@ def evaluate_password_strength(password):
         "special_char": bool(re.search(r"[!@#$%^&*(),.?\":{}|<>]", password))
     }
     
-    # Check if the password meets each criterion
     for key, met in criteria.items():
         if met:
             strength_score += 1
     
-    # Provide feedback based on the strength score
     feedback = []
     if strength_score == 5:
         feedback.append(colored("Your password is strong.", "green"))
@@ -31,7 +26,6 @@ def evaluate_password_strength(password):
         feedback.append(colored("Your password is weak.", "red"))
         feedback.append(colored("Suggestions to improve password strength:", "red"))
     
-    # Give feedback on missing criteria
     if not criteria["length"]:
         feedback.append("- Password should be at least 8 characters long.")
     if not criteria["uppercase"]:
@@ -45,7 +39,6 @@ def evaluate_password_strength(password):
     
     return feedback, strength_score
 
-# Main function to interact with the user
 def main():
     print("Password Strength Checker Tool")
     
@@ -55,17 +48,13 @@ def main():
             print("Exiting the tool.")
             break
         
-        # Evaluate password strength
         feedback, score = evaluate_password_strength(password)
         
-        # Print feedback
         print("\nPassword Strength Feedback:")
         for line in feedback:
             print(line)
         
-        # Display the strength score
         print(colored(f"\nStrength Score: {score}/5\n", "cyan"))
 
-# Run the program
 if __name__ == "__main__":
     main()
